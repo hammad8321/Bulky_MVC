@@ -1,4 +1,9 @@
-namespace BulkyWeb.Models
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace Bulky.Models.Models
+
 {
     public class ErrorViewModel
     {
