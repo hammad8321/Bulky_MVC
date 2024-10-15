@@ -1,23 +1,27 @@
-﻿using Bulky.DataAccess.Data;
+﻿using Bulky.DataAccess.Repository.IRepository;
+using Bulky.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Bulky.Models.Models;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace BulkyWeb.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork db)
         {
-            _db = db;
+            _unitOfWork = db;
         }
 
 
 
         public IActionResult Index()
         {
-            //   var objCategoryList = _db.Categories.ToList();
-            List<Category> objCategoryList = _db.Categories.ToList();
+            //  var objCategoryList = _db.Categories.ToList();
+            // List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();//.AsQueryable().ToList();
             return View(objCategoryList);
         }
 
@@ -28,7 +32,7 @@ namespace BulkyWeb.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category o)
+        public IActionResult Create(Category obj)
         {
             //if (o.Name == o.DisplayOrder.ToString())
             //{
@@ -38,27 +42,34 @@ namespace BulkyWeb.Controllers
             //{
             //    ModelState.AddModelError("", "no Test value plz ");
             //}
+
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
+            }
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(o);
-                _db.SaveChanges();
+
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Added..!!";
                 return RedirectToAction("Index");
 
             }
             return View();
-            
+
         }
 
-        public IActionResult Edit( int? id)
+        public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(id);
-         // Category categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
-         // Category categoryFromDb = _db.Categories.Where(u=>u.Id == id).FirstOrDefault();
+            // Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            // Category? categoryFromDb = _categoryRepo.Categories.FirstOrDefault(c => c.Id == id);
+            // Category categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -68,11 +79,11 @@ namespace BulkyWeb.Controllers
         [HttpPost]
         public IActionResult Edit(Category o)
         {
-        
+
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(o);
-                _db.SaveChanges();
+                _unitOfWork.Category.Update(o);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Updated..!!";
                 return RedirectToAction("Index");
 
@@ -88,27 +99,27 @@ namespace BulkyWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(id);
-           
+            Category? categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
+
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
             return View(categoryFromDb);
         }
-        [HttpPost , ActionName("Delete")]
-        public IActionResult DeletePOST(int ? id)
-        {   
-            Category? o = _db.Categories.Find(id);
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? o = _unitOfWork.Category.Get(u => u.Id == id);
             if (o == null)
-                { return NotFound(); } 
-            _db.Categories.Remove(o); 
-            _db.SaveChanges();
+            { return NotFound(); }
+            _unitOfWork.Category.Remove(o);
+            _unitOfWork.Save();
             TempData["success"] = "Category bye bye..!!";
             return RedirectToAction("Index");
-            
 
-          
+
+
 
         }
 
