@@ -37,3 +37,10 @@ app.MapControllerRoute(
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+/*
+ * Main 
+ * update-database
+ * add-migration AddProductTableToDB
+ * add-migration AddProductTableToDB
+ * 
+*/

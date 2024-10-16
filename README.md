@@ -1,10 +1,5 @@
-# .NET 8 Beginner to Advanced Course
-
-This is a Beginner to Advanced level Project on .NET 8 that will take you from the basics all the way to advanced concepts. This Project is for anyone who is new to ASP.NET Core or who is familiar with ASP.NET and wants to understand what is different in ASP.NET Core. From there, we will build multiple projects to understand all concepts in .NET 8 as we deploy our final application on Azure as well as IIS.
-
-## Course Overview
-
-Throughout this Project, we included:
+MY Readd me File 
+jhvjhvjhvjvjhvjhvjhvjhvjhj
 
 - Concept of **evolution of ASP.NET Core** and exploring the modified files and folder structure.
 - Determine **new concepts in ASP.NET Core** and learnt how they differ from the traditional ASP.NET.
