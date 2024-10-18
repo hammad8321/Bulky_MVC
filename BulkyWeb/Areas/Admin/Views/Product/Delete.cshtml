@@ -2,7 +2,7 @@
 
 <form method="post">
        <input asp-for="Id" hidden/>
-    <div class="border p-3 mt-4">
+    <div class="border p-3 my-4">
         <div class="row pb-2">
             <h2 class="text-primary">Remove Product</h2>
             <hr />
@@ -10,12 +10,44 @@
         @*   <div asp-validation-summary="ModelOnly"></div> *@
         <div class="mb-3 row p-1">
             <label asp-for="Title" class="p-0"> </label>
-            <input asp-for="Title" disabled class="form-control" />
-           
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-bg-danger"></span>
+
         </div>
         <div class="mb-3 row p-1">
             <label asp-for="Description" class="p-0"> </label>
-            <input asp-for="Description" disabled class="form-control" />          
+            <input asp-for="Description" disabled class="form-control" />
+         
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="ISBN" class="p-0"> </label>
+            <input asp-for="ISBN" disabled class="form-control" />
+           
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Author" class="p-0"> </label>
+            <input asp-for="Author" disabled class="form-control" />
+           
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="ListPrice" class="p-0"> </label>
+            <input asp-for="ListPrice" disabled class="form-control" />
+           
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Price" class="p-0"> </label>
+            <input asp-for="Price" disabled class="form-control" />
+          
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Price50" class="p-0"> </label>
+            <input asp-for="Price50" disabled class="form-control" />
+         
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Price100" class="p-0"> </label>
+            <input asp-for="Price100" disabled class="form-control" />
+        
         </div>
 
 

@@ -1,13 +1,14 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
-        
+
         private readonly IUnitOfWork _unitOfWork;
         public ProductController(IUnitOfWork db)
         {
@@ -17,6 +18,11 @@ namespace BulkyWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            });
             return View(objProductList);
         }
 
@@ -24,25 +30,38 @@ namespace BulkyWeb.Areas.Admin.Controllers
         {
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
         public IActionResult Create(Product obj)
         {
-
-            if (obj.Title == obj.Description.ToString())
-            {
-                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-
-            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
+                TempData["success"] = "Product Added..!!";
+                return RedirectToAction("Index");
 
 
             }
             return View();
         }
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            // Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            // Category? categoryFromDb = _categoryRepo.Categories.FirstOrDefault(c => c.Id == id);
+            // Category categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            if (productFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(productFromDb);
+        }
+
         [HttpPost]
         public IActionResult Edit(Product o)
         {
@@ -83,9 +102,6 @@ namespace BulkyWeb.Areas.Admin.Controllers
             _unitOfWork.Save();
             TempData["success"] = "Product bye bye..!!";
             return RedirectToAction("Index");
-
-
-
 
         }
     }
