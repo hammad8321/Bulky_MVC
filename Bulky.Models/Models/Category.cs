@@ -14,5 +14,7 @@ namespace Bulky.Models.Models
         [DisplayName("Display Order")]
         [Range(1,100,ErrorMessage="Ops  order must be below 100")]
         public int DisplayOrder { get; set; }
+
+     //  public int CategoryId { get; set; }
     }
 }
