@@ -1,4 +1,4 @@
-﻿using Bulky.Models.Models;
+﻿using Bulky.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

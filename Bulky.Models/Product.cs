@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bulky.Models.Models
+namespace Bulky.Models
 {
     public class Product
     {
