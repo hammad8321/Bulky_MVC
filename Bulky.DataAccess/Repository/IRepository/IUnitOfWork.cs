@@ -17,7 +17,15 @@ namespace Bulky.DataAccess.Repository.IRepository
 
         IApplicationUserRepository ApplicationUser { get; }
 
-        void Save();
+
+		IOrderDetailRepository OrderDetail { get;  }
+
+	    IOrderHeaderRepository OrderHeader { get; }
+
+
+
+
+		void Save();
 
     }
 }
