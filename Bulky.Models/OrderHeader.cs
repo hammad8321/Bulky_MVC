@@ -13,7 +13,7 @@ namespace Bulky.Models
 	{
 
 		public int Id { get; set; }
-		public string AppliactionUserId { get; set; }
+		public string ApplicationUserId { get; set; }
 
 		[ForeignKey("ApplicationUserId")]
 		[ValidateNever]
