@@ -1,5 +1,5 @@
 
-I am hammad From Australia, a passionate software developer. With a keen eye for clean, efficient, and scalable code, I’m constantly exploring new ways to build robust applications.
+I am *Hammad* From Australia, a passionate software developer. With a keen eye for clean, efficient, and scalable code, I’m constantly exploring new ways to build robust applications.
 
 
 # .NET 8 Beginner to Advanced Course
